@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090d1a">
+<title>TriviaGenius</title>
+<style>
+:root{--bg:#090d1a;--panel:#111a2e;--panel2:#17233d;--text:#f4f7ff;--muted:#9eacc8;--purple:#8557ff;--blue:#2788ff;--green:#20d6a0;--red:#ff6685;--accent:#8557ff;--accent2:#2788ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#172044 0%,var(--bg) 58%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;color:inherit}button:focus-visible{outline:3px solid #9b85ff;outline-offset:3px}
+.app{max-width:1100px;margin:auto;padding:22px 18px 40px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:10px;font-size:1.35rem;font-weight:850;letter-spacing:-.6px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:24px;box-shadow:0 7px 25px #744bff55}.brand span{background:linear-gradient(90deg,#fff,#a995ff 70%,#5ba8ff);color:transparent;background-clip:text}.stats{display:flex;gap:8px}.pill{background:#111a2e;border:1px solid #263555;border-radius:999px;padding:9px 13px;font-weight:700;font-size:.88rem}.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-bottom:20px}.hero-main,.hero-side,.panel{background:linear-gradient(145deg,#151f38,#0e1526);border:1px solid #253555;border-radius:24px;padding:26px;box-shadow:0 18px 50px #0002}.eyebrow{color:#a99aff;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px}.hero h1{font-size:clamp(2.1rem,5vw,3.7rem);line-height:1.02;letter-spacing:-2px;margin:12px 0}.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));color:transparent;background-clip:text}.sub{color:var(--muted);line-height:1.6}.primary{background:linear-gradient(100deg,var(--accent),var(--accent2));padding:14px 20px;border-radius:14px;font-weight:800;box-shadow:0 8px 22px #5e47ff35;transition:transform .15s}.primary:hover{transform:translateY(-2px)}.secondary{background:#1a2742;border:1px solid #30456c;padding:12px 16px;border-radius:13px;font-weight:700}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.hero-side{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}.orb{width:140px;height:140px;border-radius:50%;display:grid;place-items:center;font-size:70px;background:radial-gradient(circle at 35% 25%,#776aff,#2a5bc7 55%,#152449);box-shadow:0 0 65px #6654ff45;margin-bottom:14px}.hero-side strong{font-size:1.15rem}.progress{height:8px;border-radius:99px;background:#263552;overflow:hidden;margin-top:14px;width:100%}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#a94cff,#3c9dff);transition:width .25s}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:28px 2px 14px}.section-head h2{font-size:1.3rem;margin:0}.section-head p{color:var(--muted);margin:4px 0 0;font-size:.9rem}.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.category{padding:18px;background:#111a2e;border:1px solid #253555;border-radius:18px;text-align:left;transition:.18s;min-height:125px}.category:hover,.category.selected{border-color:#8762ff;transform:translateY(-2px);background:#1a2140}.cat-icon{font-size:26px;display:block;margin-bottom:12px}.category b{display:block;margin-bottom:4px}.category small{color:var(--muted)}.content-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:22px}.panel h2{margin:0 0 8px}.panel p{color:var(--muted);line-height:1.5}.quiz-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.9rem}.question{font-size:1.35rem;line-height:1.35;margin:22px 0}.answers{display:grid;gap:10px}.answer{background:#16233b;border:1px solid #2b3e60;padding:14px 15px;border-radius:13px;text-align:left;display:flex;gap:12px;align-items:center}.letter{width:28px;height:28px;border-radius:9px;background:#27395b;display:grid;place-items:center;font-weight:800;flex-shrink:0}.answer:hover:not(:disabled){border-color:#9c83ff;background:#20294b}.answer.correct{border-color:var(--green);background:#0d3a36}.answer.wrong{border-color:var(--red);background:#402037}.answer:disabled{cursor:default}.feedback{margin-top:12px;min-height:24px;font-weight:700}.quiz-controls{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}.hidden{display:none!important}.leader-row{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid #26334c}.leader-row:last-child{border:0}.rank{color:#a99aff;font-weight:900;width:22px}.avatar{width:34px;height:34px;border-radius:12px;background:#25395c;display:grid;place-items:center}.leader-name{flex:1;font-weight:700}.points{color:#9db8ff;font-weight:800}.feature-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.feature{background:#111a2e;border:1px solid #253555;border-radius:16px;padding:15px}.feature strong{display:block;margin-bottom:6px}.feature span{font-size:1.3rem;margin-right:6px}.footer{text-align:center;color:#6f80a2;font-size:.85rem;padding:28px 0 0}.modal-backdrop{position:fixed;inset:0;background:#030611c9;display:grid;place-items:center;padding:18px;z-index:5}.modal{width:min(480px,100%);background:#111a2e;border:1px solid #34456a;border-radius:24px;padding:24px}.modal h2{margin-top:0}.modal input{width:100%;padding:13px;border-radius:12px;background:#0a1120;border:1px solid #30456c;color:white;margin:8px 0 16px;font:inherit}
+@media(max-width:720px){.app{padding:15px 12px 28px}.topbar{margin-bottom:18px}.brand{font-size:1.1rem}.logo{width:38px;height:38px}.pill{padding:8px 10px;font-size:.78rem}.hero{grid-template-columns:1fr}.hero-main,.hero-side,.panel{padding:20px}.hero-side{min-height:190px}.orb{width:95px;height:95px;font-size:48px}.categories{grid-template-columns:repeat(2,1fr);gap:9px}.category{padding:14px;min-height:118px}.content-grid{grid-template-columns:1fr}.feature-list{grid-template-columns:1fr 1fr}.hero h1{letter-spacing:-1.5px}}
+@media(max-width:380px){.stats{gap:4px}.pill{padding:7px}.categories{grid-template-columns:1fr 1fr}.question{font-size:1.18rem}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">🧠</div><div>Trivia<span>Genius</span></div></div>
+  <div class="stats"><div class="pill">🌐 <select id="languageSelect" aria-label="Taal kiezen" style="background:transparent;color:inherit;border:0;font:inherit;max-width:90px"><option value="nl">NL</option><option value="en">EN</option><option value="fr">FR</option><option value="de">DE</option><option value="es">ES</option></select></div><div class="pill">⚡ <b id="streak">0</b></div><div class="pill">⭐ <b id="totalScore">0</b> XP</div></div>
+</header>
+<section class="hero">
+  <div class="hero-main">
+    <div class="eyebrow">Your brain. Your arena.</div>
+    <h1>Hoe slim ben <em>jij echt?</em></h1>
+    <p class="sub">Test je kennis, verzamel XP en klim naar de top. Elke vraag is een nieuwe kans om een genie te worden.</p>
+    <div class="hero-actions"><button class="primary" id="playBtn">▶ Start quiz</button><button class="secondary" id="randomBtn">🎲 Verrassingsquiz</button><button class="secondary" id="onlineBtn">🌍 Online spelen</button><button class="secondary" id="accountBtn">👤 Account</button></div>
+  </div>
+  <div class="hero-side">
+    <div class="orb">👑</div><strong id="levelText">Level 1 · Nieuwsgierige geest</strong><p class="sub" style="margin:6px 0 0">Je volgende level komt steeds dichterbij.</p>
+    <div class="progress"><span id="levelProgress"></span></div><small class="sub" id="xpText">0 / 100 XP naar level 2</small>
+  </div>
+</section>
+<div class="section-head"><div><h2>Kies je categorie</h2><p>Wat wil je vandaag ontdekken?</p></div><span class="eyebrow">6 categorieën</span></div>
+<section class="categories" id="categories"></section>
+<div class="content-grid">
+  <section class="panel" id="quizPanel">
+    <div class="quiz-top"><span id="quizCategory">🎯 Klaar om te spelen?</span><span id="questionCount">0 / 10</span></div>
+    <div class="progress"><span id="quizProgress"></span></div>
+    <div id="quizStart">
+      <h2 style="margin-top:22px">Jouw volgende uitdaging wacht.</h2>
+      <p>Kies een categorie en druk op start. Beantwoord vragen, verdien 10 XP per goed antwoord en probeer je eigen record te verbreken.</p>
+      <button class="primary" id="startPanelBtn">Start de quiz →</button>
+    </div>
+    <div id="quizPlay" class="hidden">
+      <h3 class="question" id="questionText"></h3>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <div class="quiz-controls"><button class="secondary" id="hintBtn">💡 Hint</button><button class="primary" id="nextBtn" disabled>Volgende →</button></div>
+    </div>
+    <div id="quizDone" class="hidden">
+      <div style="font-size:48px;margin-top:20px">🏆</div><h2 id="resultTitle">Goed gespeeld!</h2><p id="resultText"></p><button class="primary" id="againBtn">Nog een ronde ↻</button>
+    </div>
+  </section>
+  <aside class="panel">
+    <h2>🏆 Hall of Genius</h2><p>Jouw score tegen de beste spelers.</p>
+    <div id="leaderboard"></div>
+    <div class="feature-list">
+      <div class="feature"><span>🧠</span><strong>Leer al spelend</strong><small class="sub">Nieuwe weetjes bij elke quiz.</small></div>
+      <div class="feature"><span>⚡</span><strong>XP & levels</strong><small class="sub">Verdien punten met goede antwoorden.</small></div>
+      <div class="feature"><span>💡</span><strong>Hints</strong><small class="sub">Kom weer op het juiste spoor.</small></div>
+      <div class="feature"><span>📱</span><strong>Overal spelen</strong><small class="sub">Werkt op mobiel en computer.</small></div>
+    </div>
+  </aside>
+</div>
+<section class="panel" style="margin-top:20px">
+  <h2>🎨 Jouw TriviaGenius</h2><p>Kies je accentkleur en taal. Je voorkeuren worden op dit apparaat onthouden.</p>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><label for="accentPicker" style="font-weight:700">Accentkleur</label><input id="accentPicker" type="color" value="#8557ff" style="width:54px;height:42px;border:0;background:transparent;cursor:pointer"><button class="secondary" id="resetAccent">Reset kleur</button><span id="savedPrefs" class="sub" aria-live="polite"></span></div>
+</section>
+<div class="footer">TriviaGenius · More questions. More knowledge. More fun.</div>
+<div class="modal-backdrop hidden" id="onlineModal"><div class="modal"><button class="secondary" id="closeOnline" style="float:right">✕</button><h2>🌍 Online spelen</h2><p class="sub">Maak een kamer voor vrienden of doe mee met een code.</p><label for="roomName">Naam van de kamer</label><input id="roomName" maxlength="24" placeholder="Bijv. Remi's quiz night"><button class="primary" id="createRoom" style="width:100%;margin-bottom:10px">Maak privékamer</button><label for="roomCode">Kamercode</label><input id="roomCode" maxlength="8" placeholder="Voer code in"><button class="secondary" id="joinRoom" style="width:100%">Doe mee met code</button>
+<hr style="border:0;border-top:1px solid #26334c;margin:18px 0">
+<h3>👥 Vriendencode</h3><p class="sub">Speel alleen met mensen die jouw privécode hebben. Maak een code voor je vriendengroep of voer een code in die je kreeg.</p>
+<label for="friendRoomName">Naam van je vriendengroep</label><input id="friendRoomName" maxlength="24" placeholder="Bijv. Remi & vrienden">
+<button class="primary" id="createFriendCode" style="width:100%;margin-bottom:10px">Maak vriendencode 🔐</button>
+<label for="friendCodeInput">Vriendencode</label><input id="friendCodeInput" maxlength="10" placeholder="Bijv. TG-7K2P9">
+<button class="secondary" id="joinFriendCode" style="width:100%">Speel met deze vriendengroep</button>
+<p id="friendStatus" class="sub" aria-live="polite"></p>
+<p id="friendCodeDisplay" class="hidden" style="background:#0a1120;border:1px dashed #8b70ff;border-radius:12px;padding:14px;text-align:center;font-size:1.5rem;font-weight:900;letter-spacing:2px"></p>
+<p id="onlineStatus" class="sub" aria-live="polite"></p><p class="sub" style="font-size:.8rem">Prototype: online kamers zijn nog lokaal gesimuleerd. Echt spelen tussen verschillende apparaten vereist een online server.</p></div></div>
+<div class="modal-backdrop hidden" id="accountModal"><div class="modal"><button class="secondary" id="closeAccount" style="float:right">✕</button><h2>👤 Jouw account</h2><p class="sub">Meld je aan om je profiel te personaliseren.</p><label for="emailInput">E-mailadres</label><input id="emailInput" type="email" placeholder="jij@voorbeeld.com" autocomplete="email"><label for="passwordInput">Wachtwoord</label><input id="passwordInput" type="password" placeholder="Minstens 8 tekens" autocomplete="new-password"><button class="primary" id="emailSignIn" style="width:100%">Verder met e-mail</button><button class="secondary" id="appleSignIn" style="width:100%;margin-top:10px"> Doorgaan met Apple</button><p id="accountStatus" class="sub" aria-live="polite"></p><p class="sub" style="font-size:.8rem">Demo-interface: er worden geen echte accounts aangemaakt en Apple-aanmelding werkt pas na configuratie van een beveiligde backend en Sign in with Apple.</p></div></div>
+</div>
+<div class="modal-backdrop hidden" id="nameModal"><div class="modal"><h2>Welkom, Genius 👋</h2><p class="sub">Hoe noemen we jou op het scorebord?</p><input id="playerName" maxlength="18" placeholder="Jouw nickname" value="Genius"/><button class="primary" id="saveName" style="width:100%">Let's play →</button></div></div>
+<script>
+const categories=[
+ {id:"general",name:"Algemene kennis",icon:"🌐",desc:"Van alles wat",color:"#398cff"},
+ {id:"science",name:"Wetenschap",icon:"🧪",desc:"Hoe de wereld werkt",color:"#20d6a0"},
+ {id:"history",name:"Geschiedenis",icon:"🏛️",desc:"Toen en vroeger",color:"#ffbf4d"},
+ {id:"sports",name:"Sport",icon:"🏀",desc:"Records en kampioenen",color:"#ff805e"},
+ {id:"entertainment",name:"Entertainment",icon:"🎬",desc:"Films, muziek en games",color:"#bd7aff"},
+ {id:"technology",name:"Technologie",icon:"💻",desc:"Tech en internet",color:"#38d4e8"}
+];
+const bank={
+general:[
+["Wat is de hoofdstad van Japan?",["Seoul","Tokio","Beijing","Bangkok"],1,"Tokio ligt op het eiland Honshu."],
+["Hoeveel zijden heeft een zeshoek?",["5","6","7","8"],1,"Het voorvoegsel 'hexa' betekent zes."],
+["Welke oceaan is de grootste?",["Atlantische","Indische","Stille","Arctische"],2,"Hij beslaat een groot deel van de aarde."],
+["Welke taal spreekt men vooral in Brazilië?",["Spaans","Portugees","Frans","Italiaans"],1,"Het is dezelfde hoofdtaal als in Portugal."],
+["Hoeveel minuten zitten er in twee uur?",["60","100","120","180"],2,"Een uur telt 60 minuten."],
+["Welke planeet staat bekend als de rode planeet?",["Venus","Mars","Jupiter","Mercurius"],1,"De kleur komt door ijzeroxide op het oppervlak."],
+["Wat is de kleinste priemgetal?",["0","1","2","3"],2,"Het is ook het enige even priemgetal."],
+["Welk dier is het grootste landdier?",["Neushoorn","Nijlpaard","Afrikaanse olifant","Giraf"],2,"Dit dier heeft grote oren en een slurf."]
+],
+science:[
+["Welk gas nemen planten op uit de lucht?",["Zuurstof","Koolstofdioxide","Helium","Waterstof"],1,"Planten gebruiken dit bij fotosynthese."],
+["Wat is het middelpunt van ons zonnestelsel?",["De aarde","De maan","De zon","Jupiter"],2,"De planeten draaien eromheen."],
+["Hoeveel poten heeft een spin?",["6","8","10","12"],1,"Spinnen zijn geen insecten."],
+["Welke kracht houdt ons op de grond?",["Magnetisme","Wrijving","Zwaartekracht","Elektriciteit"],2,"Deze kracht trekt massa naar elkaar toe."],
+["Wat is H₂O beter bekend als?",["Zout","Water","Zuurstof","Suiker"],1,"Twee waterstofatomen en één zuurstofatoom."],
+["Welk orgaan pompt bloed door je lichaam?",["Longen","Lever","Hart","Nieren"],2,"Het klopt dag en nacht."],
+["Welke ster staat het dichtst bij de aarde?",["Sirius","De zon","Polaris","Vega"],1,"Zonder deze ster zou leven op aarde heel anders zijn."],
+["Bij welke temperatuur bevriest water ongeveer op zeeniveau?",["0°C","10°C","32°C","100°C"],0,"Hetzelfde getal als het smeltpunt van ijs in Celsius."]
+],
+history:[
+["In welk land staan de piramides van Gizeh?",["Mexico","Griekenland","Egypte","India"],2,"Ze staan vlak bij Caïro."],
+["In welk jaar eindigde de Tweede Wereldoorlog?",["1939","1942","1945","1950"],2,"Het was midden in de jaren veertig."],
+["Welke oude beschaving bouwde het Colosseum?",["Romeinen","Vikingen","Maya's","Perzen"],0,"Hun rijk had zijn centrum in Italië."],
+["Wie was de eerste mens op de maan?",["Buzz Aldrin","Neil Armstrong","Yuri Gagarin","John Glenn"],1,"Hij zette in 1969 als eerste voet op de maan."],
+["Welke muur viel in 1989?",["Hadrianus' muur","Chinese Muur","Berlijnse Muur","Klaagmuur"],2,"Hij verdeelde jarenlang een Duitse stad."],
+["Waar ontstonden de Olympische Spelen in de oudheid?",["Italië","Griekenland","Egypte","Frankrijk"],1,"De naam komt van Olympia."],
+["Wie schilderde de Mona Lisa?",["Van Gogh","Picasso","Leonardo da Vinci","Monet"],2,"Hij was ook uitvinder en wetenschapper."],
+["Welk schip zonk in 1912 tijdens zijn eerste reis?",["Mayflower","Titanic","Santa Maria","Endeavour"],1,"Het was een beroemd oceaanstomer."]
+],
+sports:[
+["Hoeveel spelers heeft één voetbalteam op het veld?",["9","10","11","12"],2,"De doelman telt mee."],
+["Bij welke sport hoort Wimbledon?",["Cricket","Tennis","Golf","Rugby"],1,"Het is een beroemd grastoernooi."],
+["Hoeveel ringen staan er op het Olympische symbool?",["4","5","6","7"],1,"Ze staan voor de verbondenheid van continenten."],
+["Welke sport speelt men in de NBA?",["Honkbal","Basketbal","IJshockey","American football"],1,"De competitie is in Noord-Amerika."],
+["Hoe lang is een marathon ongeveer?",["10 km","21,1 km","42,2 km","50 km"],2,"De officiële afstand is 42,195 kilometer."],
+["In welke sport gebruik je een shuttle?",["Badminton","Tennis","Squash","Volleybal"],0,"Het lichte projectiel heeft een rok van veertjes of kunststof."],
+["Welke kleur trui draagt de leider van de Tour de France?",["Groen","Wit","Geel","Rood"],2,"Deze opvallende kleur is al heel lang de traditie."],
+["Hoeveel punten is een gewone basketworp binnen de driepuntslijn waard?",["1","2","3","4"],1,"Een vrije worp is doorgaans één punt."]
+],
+entertainment:[
+["Welke superheld is ook bekend als Bruce Wayne?",["Superman","Batman","Spider-Man","Iron Man"],1,"Hij is een detective uit Gotham."],
+["In welke game bouw je met blokken in een wereld?",["Minecraft","FIFA","Tetris","Rocket League"],0,"Je kunt er bouwen, graven en craften."],
+["Welke animatiestudio maakte Toy Story?",["DreamWorks","Pixar","Studio Ghibli","Illumination"],1,"De film uit 1995 was de eerste volledig computergeanimeerde lange film."],
+["Hoe heet de school voor magie in Harry Potter?",["Narnia","Hogwarts","Nevermore","Camelot"],1,"De school heeft vier huizen."],
+["Welke instrument heeft meestal 88 toetsen?",["Gitaar","Viool","Piano","Trompet"],2,"Je speelt erop met beide handen."],
+["Welke kleur heeft de bekende Pokémon Pikachu?",["Blauw","Geel","Groen","Paars"],1,"Hij kan elektriciteit afgeven."],
+["In welke fictieve wereld ligt Mordor?",["Star Wars","Middle-earth","Westeros","Narnia"],1,"Het is een locatie in The Lord of the Rings."],
+["Welke game heeft personages als Mario en Luigi?",["Sonic","Super Mario","Halo","Fortnite"],1,"De loodgieters zijn mascottes van Nintendo."]
+],
+technology:[
+["Waar staat 'www' voor in een webadres?",["World Wide Web","Web World Window","Wide Web Wire","World Web Watch"],0,"Het verwijst naar het systeem van webpagina's."],
+["Welke van deze is een programmeertaal?",["Python","Cobra","Falcon","Panther"],0,"De naam is ook een dier."],
+["Wat is de belangrijkste functie van een CPU?",["Geluid opnemen","Berekeningen en instructies verwerken","Scherm schoonmaken","Batterij opladen"],1,"Het wordt vaak het brein van de computer genoemd."],
+["Wat betekent AI?",["Automatische internetverbinding","Artificiële intelligentie","Audio-invoer","Aangepaste interface"],1,"Het gaat over machines die taken uitvoeren die intelligentie vragen."],
+["Welk bedrijf maakt de iPhone?",["Samsung","Microsoft","Apple","Google"],2,"Het logo is een appel."],
+["Welke eenheid wordt vaak gebruikt voor bestandsgrootte?",["Liter","Gigabyte","Watt","Meter"],1,"1 GB is ongeveer een miljard bytes."],
+["Wat doet een webbrowser?",["Websites openen","Batterijen maken","Foto's afdrukken","Wifi uitzenden"],0,"Voorbeelden zijn Safari, Chrome en Firefox."],
+["Waarvoor dient een wachtwoord?",["Je scherm helderder maken","Toegang beveiligen","Internet versnellen","Bestanden comprimeren"],1,"Gebruik voor verschillende accounts unieke combinaties."]
+]};
+let selected="general",questions=[],index=0,score=0,correctCount=0,answered=false,hints=3,streak=0,totalScore=0,player="Genius",best=0,rounds=0;
+const $=id=>document.getElementById(id);
+function renderCategories(){ $("categories").innerHTML=categories.map(c=>`<button class="category ${c.id===selected?'selected':''}" data-id="${c.id}"><span class="cat-icon">${c.icon}</span><b>${c.name}</b><small>${c.desc}</small></button>`).join("");document.querySelectorAll(".category").forEach(b=>b.onclick=()=>{selected=b.dataset.id;renderCategories();$("quizCategory").textContent=categories.find(c=>c.id===selected).icon+" "+categories.find(c=>c.id===selected).name;$("quizStart").classList.remove("hidden");$("quizPlay").classList.add("hidden");$("quizDone").classList.add("hidden")})}
+function updateStats(){$("streak").textContent=streak;$("totalScore").textContent=totalScore;let level=Math.floor(totalScore/100)+1,xp=totalScore%100;$("levelText").textContent=`Level ${level} · ${level===1?"Nieuwsgierige geest":level<5?"Slimme denker":"Trivia-legende"}`;$("levelProgress").style.width=xp+"%";$("xpText").textContent=`${xp} / 100 XP naar level ${level+1}`;renderLeaderboard()}
+function renderLeaderboard(){let entries=[{name:"QuizMaster",score:260},{name:"NovaBrain",score:220},{name:"AlexGenius",score:180},{name:player,score:totalScore,you:true}].sort((a,b)=>b.score-a.score);$("leaderboard").innerHTML=entries.map((e,i)=>`<div class="leader-row"><span class="rank">${i+1}</span><span class="avatar">${e.you?"😎":["🦊","🧑‍🚀","🧠","🐼"][i%4]}</span><span class="leader-name">${escapeHtml(e.name)}${e.you?" (jij)":""}</span><span class="points">${e.score} XP</span></div>`).join("")}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function startQuiz(random=false){if(random)selected=categories[Math.floor(Math.random()*categories.length)].id;renderCategories();let cat=categories.find(c=>c.id===selected);questions=[...bank[selected]];for(let i=questions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]];}questions=questions.slice(0,8);index=0;score=0;correctCount=0;hints=3;answered=false;$("quizCategory").textContent=cat.icon+" "+cat.name;$("quizStart").classList.add("hidden");$("quizDone").classList.add("hidden");$("quizPlay").classList.remove("hidden");renderQuestion();$("quizPanel").scrollIntoView({behavior:"smooth",block:"start"})}
+function renderQuestion(){let q=questions[index];answered=false;$("questionCount").textContent=`${index+1} / ${questions.length}`;$("quizProgress").style.width=(index/questions.length*100)+"%";$("questionText").textContent=q[0];$("feedback").textContent="";$("nextBtn").disabled=true;$("nextBtn").textContent=index===questions.length-1?"Bekijk resultaat →":"Volgende →";$("hintBtn").disabled=hints<=0;$("hintBtn").textContent=`💡 Hint (${hints})`;$("answers").innerHTML=q[1].map((a,i)=>`<button class="answer" data-answer="${i}"><span class="letter">${"ABCD"[i]}</span><span>${a}</span></button>`).join("");document.querySelectorAll(".answer").forEach(b=>b.onclick=()=>chooseAnswer(Number(b.dataset.answer)))}
+function chooseAnswer(choice){if(answered)return;answered=true;let q=questions[index],right=choice===q[2];document.querySelectorAll(".answer").forEach((b,i)=>{b.disabled=true;if(i===q[2])b.classList.add("correct");if(i===choice&&!right)b.classList.add("wrong")});if(right){correctCount++;score+=10;totalScore+=10;streak++;$("feedback").textContent="✓ Correct! +10 XP · "+q[3]}else{streak=0;$("feedback").textContent="Niet helemaal! "+q[3]}$("nextBtn").disabled=false;$("quizProgress").style.width=((index+1)/questions.length*100)+"%";updateStats()}
+function nextQuestion(){if(!answered)return;index++;if(index>=questions.length){finishQuiz();return}renderQuestion()}
+function finishQuiz(){rounds++;best=Math.max(best,score);$("quizPlay").classList.add("hidden");$("quizDone").classList.remove("hidden");$("resultTitle").textContent=correctCount===questions.length?"Perfecte score! 🧠":correctCount>=5?"Sterk gespeeld! 🎉":"Goed geprobeerd! 💪";$("resultText").textContent=`Je had ${correctCount} van de ${questions.length} goed en verdiende ${score} XP. ${correctCount===questions.length?"Je bent een echte TriviaGenius!":"Speel nog een ronde om je kennis te verbeteren."}`;$("questionCount").textContent=`${questions.length} / ${questions.length}`;$("quizProgress").style.width="100%";updateStats()}
+function showHint(){if(hints<=0||answered)return;hints--;let q=questions[index];let wrong=[0,1,2,3].filter(i=>i!==q[2]);let eliminate=wrong.slice(0,2);document.querySelectorAll(".answer").forEach((b,i)=>{if(eliminate.includes(i)){b.disabled=true;b.style.opacity=".35"}});$("hintBtn").textContent=`💡 Hint (${hints})`;$("hintBtn").disabled=hints===0;$("feedback").textContent="Hint: "+q[3]}
+$("playBtn").addEventListener("click",()=>{try{startQuiz(false)}catch(err){console.error(err);$("quizStart").classList.remove("hidden");$("quizStart").textContent="Quiz kon niet starten. Herlaad de pagina en probeer opnieuw."}});$("playBtn").onclick=()=>startQuiz();$("randomBtn").onclick=()=>{renderCategories();startQuiz(true)};$("startPanelBtn").onclick=()=>startQuiz();$("nextBtn").onclick=nextQuestion;$("hintBtn").onclick=showHint;$("againBtn").onclick=()=>startQuiz();$("saveName").onclick=()=>{player=$("playerName").value.trim()||"Genius";try{localStorage.setItem("tgPlayerName",player)}catch(e){}$("nameModal").classList.add("hidden");updateStats()};$("playerName").addEventListener("keydown",e=>{if(e.key==="Enter")$("saveName").click()});
+renderCategories();updateStats();try{sessionStorage.setItem("tgWelcomed","1");$("nameModal").classList.add("hidden")}catch(e){$("nameModal").classList.add("hidden")}
+
+// Extra prototype features: language selector, accent theme, account and online lobby demos.
+const translations = {
+ nl:{tagline:"Hoe slim ben jij echt?",start:"▶ Start quiz",random:"🎲 Verrassingsquiz",online:"🌍 Online spelen",account:"👤 Account",choose:"Kies je categorie",ready:"Jouw volgende uitdaging wacht.",correct:"Correct!",wrong:"Niet helemaal!",next:"Volgende →",result:"Goed gespeeld!",language:"Taal opgeslagen."},
+ en:{tagline:"How smart are you, really?",start:"▶ Start quiz",random:"🎲 Random quiz",online:"🌍 Play online",account:"👤 Account",choose:"Choose your category",ready:"Your next challenge awaits.",correct:"Correct!",wrong:"Not quite!",next:"Next →",result:"Well played!",language:"Language saved."},
+ fr:{tagline:"Es-tu vraiment aussi malin ?",start:"▶ Commencer",random:"🎲 Quiz surprise",online:"🌍 Jouer en ligne",account:"👤 Compte",choose:"Choisis une catégorie",ready:"Ton prochain défi t’attend.",correct:"Correct !",wrong:"Pas tout à fait !",next:"Suivant →",result:"Bien joué !",language:"Langue enregistrée."},
+ de:{tagline:"Wie schlau bist du wirklich?",start:"▶ Quiz starten",random:"🎲 Zufallsquiz",online:"🌍 Online spielen",account:"👤 Konto",choose:"Wähle eine Kategorie",ready:"Deine nächste Herausforderung wartet.",correct:"Richtig!",wrong:"Nicht ganz!",next:"Weiter →",result:"Gut gespielt!",language:"Sprache gespeichert."},
+ es:{tagline:"¿Qué tan listo eres?",start:"▶ Empezar quiz",random:"🎲 Quiz sorpresa",online:"🌍 Jugar en línea",account:"👤 Cuenta",choose:"Elige una categoría",ready:"Tu próximo reto te espera.",correct:"¡Correcto!",wrong:"¡No exactamente!",next:"Siguiente →",result:"¡Bien jugado!",language:"Idioma guardado."}
+};
+function applyLanguage(lang){
+ const t=translations[lang]||translations.nl;
+ const heading=document.querySelector(".hero h1");
+ const headings={
+   nl:'Hoe slim ben <em>jij echt?</em>',
+   en:'How smart are <em>you, really?</em>',
+   fr:'Es-tu vraiment <em>aussi malin ?</em>',
+   de:'Wie schlau bist <em>du wirklich?</em>',
+   es:'¿Qué tan listo <em>eres?</em>'
+ };
+ heading.innerHTML=headings[lang]||headings.nl;
+ $("playBtn").textContent=t.start;$("randomBtn").textContent=t.random;$("onlineBtn").textContent=t.online;$("accountBtn").textContent=t.account;
+ document.querySelector(".section-head h2").textContent=t.choose;
+ localStorage.setItem("tgLanguage",lang);$("savedPrefs").textContent=t.language;
+}
+$("languageSelect").addEventListener("change",e=>applyLanguage(e.target.value));
+$("accentPicker").addEventListener("input",e=>{
+ const c=e.target.value;
+ document.documentElement.style.setProperty("--accent",c);
+ // Derive a brighter companion color for gradient buttons.
+ document.documentElement.style.setProperty("--accent2",c);
+ localStorage.setItem("tgAccent",c);$("savedPrefs").textContent="Accentkleur opgeslagen.";
+});
+$("resetAccent").onclick=()=>{$("accentPicker").value="#8557ff";$("accentPicker").dispatchEvent(new Event("input"));};
+$("onlineBtn").onclick=()=>$("onlineModal").classList.remove("hidden");
+$("closeOnline").onclick=()=>$("onlineModal").classList.add("hidden");
+$("createRoom").onclick=()=>{
+ const code=Math.random().toString(36).slice(2,7).toUpperCase();
+ $("roomCode").value=code;
+ $("onlineStatus").textContent=`Kamercode ${code} aangemaakt voor "${$("roomName").value.trim()||"TriviaGenius-kamer"}". Deel de code met vrienden. Demo: vrienden kunnen nog niet vanaf een ander apparaat verbinden.`;
+};
+$("joinRoom").onclick=()=>{
+ const code=$("roomCode").value.trim().toUpperCase();
+ $("onlineStatus").textContent=code?`Je probeert kamer ${code} te openen. Deze demo heeft nog geen echte online server, dus verbinden is nog niet mogelijk.`:"Vul eerst een kamercode in.";
+};
+$("accountBtn").onclick=()=>$("accountModal").classList.remove("hidden");
+$("closeAccount").onclick=()=>$("accountModal").classList.add("hidden");
+$("emailSignIn").onclick=()=>{
+ const email=$("emailInput").value.trim(),pass=$("passwordInput").value;
+ $("accountStatus").textContent=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?"Vul een geldig e-mailadres in.":pass.length<8?"Kies een wachtwoord van minstens 8 tekens.":"De invoer is geldig voor de demo. Echte registratie vereist nog een beveiligde accountserver.";
+};
+$("appleSignIn").onclick=()=>{$("accountStatus").textContent="Apple-aanmelding is nog niet geconfigureerd. Hiervoor is een Apple Developer-configuratie en beveiligde server nodig.";};
+try{
+ const savedAccent=localStorage.getItem("tgAccent");if(savedAccent){$("accentPicker").value=savedAccent;document.documentElement.style.setProperty("--accent",savedAccent);document.documentElement.style.setProperty("--accent2",savedAccent);}
+ const savedLanguage=localStorage.getItem("tgLanguage")||"nl";$("languageSelect").value=savedLanguage;applyLanguage(savedLanguage);
+ const savedName=localStorage.getItem("tgPlayerName");if(savedName){player=savedName;$("nameModal").classList.add("hidden");}
+}catch(e){}
+
+
+// Friend-only invite codes. Prototype only: codes are generated locally until a backend is connected.
+function makeFriendCode(){
+ const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+ let code="TG-";
+ for(let i=0;i<5;i++)code+=alphabet[Math.floor(Math.random()*alphabet.length)];
+ return code;
+}
+$("createFriendCode").onclick=()=>{
+ const code=makeFriendCode();
+ $("friendCodeDisplay").textContent=code;
+ $("friendCodeDisplay").classList.remove("hidden");
+ $("friendCodeInput").value=code;
+ const group=$("friendRoomName").value.trim()||"Mijn vriendengroep";
+ $("friendStatus").textContent=`Privé-uitnodiging voor "${group}" gemaakt. Deel deze code alleen met de mensen die je wilt uitnodigen.`;
+ try{localStorage.setItem("tgFriendCode",code);localStorage.setItem("tgFriendGroup",group)}catch(e){}
+};
+$("joinFriendCode").onclick=()=>{
+ const code=$("friendCodeInput").value.trim().toUpperCase();
+ if(!/^TG-[A-Z0-9]{5}$/.test(code)){
+   $("friendStatus").textContent="Vul een geldige vriendencode in (bijvoorbeeld TG-7K2P9).";
+   return;
+ }
+ $("friendStatus").textContent=`Code ${code} ziet er geldig uit. In deze prototypeversie wordt de code nog niet online gecontroleerd; echte privé-multiplayer vereist een gedeelde server.`;
+};
+
+</script>
+</body>
+</html>
